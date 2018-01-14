@@ -117,6 +117,16 @@ public class Problems {
         return fast==null?prev:slow;
     }
 
+    public static boolean hasEvenLength(Node head){
+        Node slow=head,fast=head;
+
+        while(slow!=null && fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        return fast==null;
+    }
+
     public static Node createList(int arr[]){
         if(arr.length==0) return null;
         Node head=new Node(arr[0]);
