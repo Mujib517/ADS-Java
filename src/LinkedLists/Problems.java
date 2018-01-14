@@ -53,7 +53,7 @@ public class Problems {
         return count;
     }
 
-    public static Node InsertInSortedList(Node head,int data){
+    public static Node insertInSortedList(Node head,int data){
         Node n=new Node(data);
         if(head==null) return head=n;
         Node temp=head;
@@ -81,6 +81,27 @@ public class Problems {
         }
         prev.next=n;
         return temp;
+    }
+
+    public static Node reverseIterative(Node head){
+        Node pre=null;
+        while(head!=null){
+            Node next=head.next;
+            head.next=pre;
+            pre=head;
+            head=next;
+        }
+
+        return pre;
+    }
+
+    public static Node reverseRecursive(Node head,Node prev){
+        if(head==null) return prev;
+
+        Node next=head.next;  //2 3 4 5
+        head.next=prev;  //  5->4->3-> 2->1->null
+        prev=head;//5
+        return reverseRecursive(next,prev);
     }
 
     public static Node createList(int arr[]){
