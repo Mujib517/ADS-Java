@@ -2,7 +2,7 @@ package LinkedLists;
 
 public class Problems {
 
-    public static boolean FloydCycleDetection(Node head){
+    public static boolean floydCycleDetection(Node head){
         Node slow=head,fast=head;
 
         while(slow!=null && fast.next!=null){
@@ -23,12 +23,34 @@ public class Problems {
             if(slow.equals(fast)) break;
         }
 
+        slow=head;
+
         while(slow!=null & fast!=null){
             slow=slow.next;
             fast=fast.next;
             if(slow.equals(fast)) return slow;
         }
         return null;
+    }
+
+    public static int detectCycleLength(Node head){
+        Node slow=head,fast=head;
+        while(slow!=null && fast.next!=null){
+
+            slow=slow.next;
+            fast=fast.next.next;
+
+            if(slow.equals(fast)) break;
+        }
+
+        int count=0;
+
+        while(fast!=null){
+            fast=fast.next;
+            count++;
+            if(slow.equals(fast)) break;
+        }
+        return count;
     }
 
     public static Node createList(int arr[]){
@@ -48,12 +70,14 @@ public class Problems {
         Node n3=new Node(3);
         Node n4=new Node(4);
         Node n5=new Node(5);
+        Node n6=new Node(6);
 
         n1.next=n2;
         n2.next=n3;
         n3.next=n4;
         n4.next=n5;
-        n5.next=n3;
+        n5.next=n6;
+        n6.next=n3;
 
         return n1;
     }
