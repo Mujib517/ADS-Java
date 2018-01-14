@@ -53,6 +53,36 @@ public class Problems {
         return count;
     }
 
+    public static Node InsertInSortedList(Node head,int data){
+        Node n=new Node(data);
+        if(head==null) return head=n;
+        Node temp=head;
+        Node prev=null;
+
+
+        while(head!=null){
+            if(head.data<data) {
+                prev=head;
+                head=head.next;
+            }
+            else{
+                if(prev==null){
+                    prev=n;
+                    n.next=head;
+                    head=prev;
+                    return head;
+                }
+                else{
+                    n.next=head;
+                    prev.next=n;
+                    return temp;
+                }
+            }
+        }
+        prev.next=n;
+        return temp;
+    }
+
     public static Node createList(int arr[]){
         if(arr.length==0) return null;
         Node head=new Node(arr[0]);
@@ -80,5 +110,12 @@ public class Problems {
         n6.next=n3;
 
         return n1;
+    }
+
+    public static void print(Node head){
+        while(head!=null){
+            System.out.print(head.data+" ");
+            head=head.next;
+        }
     }
 }
