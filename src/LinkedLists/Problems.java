@@ -1,5 +1,10 @@
 package LinkedLists;
 
+import sun.misc.Unsafe;
+
+import static sun.misc.Unsafe.getUnsafe;
+
+
 public class Problems {
 
     public static boolean floydCycleDetection(Node head){
@@ -126,6 +131,22 @@ public class Problems {
         }
         return fast==null;
     }
+
+    //head is pointing to kth Node. Print its previous nodes
+    //use memory efficient DLL
+//    public static void printForward(Node head){
+//        if(head==null || head.next==null) return;
+//
+//        Node ct=head;
+//        Node next=head.next;
+//
+//        while(ct!=null && next!=null){
+//            Unsafe unsafe = getUnsafe();
+//            Node result= unsafe.objectFieldOffset() ^  unsafe.objectFieldOffset(next);
+//            next=ct;
+//            ct=result;
+//        }
+//    }
 
     public static Node createList(int arr[]){
         if(arr.length==0) return null;
