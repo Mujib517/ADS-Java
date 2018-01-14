@@ -104,6 +104,19 @@ public class Problems {
         return reverseRecursive(next,prev);
     }
 
+    public static Node middle(Node head){
+        Node slow=head,fast=head;
+        Node prev=null;
+        while(slow!=null && fast!=null&& fast.next!=null){
+            slow=slow.next;
+            prev=slow;
+            fast=fast.next.next;// 1 2 3 4 5 6
+        }
+        //even return prev else return middle element.
+        //if fast pointer reaches null its even length else odd length
+        return fast==null?prev:slow;
+    }
+
     public static Node createList(int arr[]){
         if(arr.length==0) return null;
         Node head=new Node(arr[0]);
