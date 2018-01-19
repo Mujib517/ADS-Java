@@ -156,6 +156,28 @@ public class Problems {
         return nodes;
     }
 
+    public static Node arrangeEvenOdd(Node head){
+        Node tempEven=new Node(Integer.MIN_VALUE);
+        Node tempOdd=new Node(Integer.MIN_VALUE);
+        Node even=tempEven;
+        Node odd=tempOdd;
+
+        while(head!=null){
+            if(head.data%2==0){
+                tempEven.next=head;
+                tempEven=tempEven.next;
+            }
+            else{
+                tempOdd.next=head;
+                tempOdd=tempOdd.next;
+            }
+            head=head.next;
+        }
+        tempOdd.next=null;
+        tempEven.next=odd.next;
+        return even.next;
+    }
+
     //head is pointing to kth Node. Print its previous nodes
     //use memory efficient DLL
 //    public static void printForward(Node head){

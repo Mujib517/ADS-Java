@@ -8,9 +8,9 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        Node head = Problems.createList(new int[]{1, 2, 3, 4, 5});
+        Node head = Problems.createList(new int[]{});
 
-        Node result = Problems.arrange(head);
+        Node result = Problems.arrangeEvenOdd(head);
         Problems.print(result);
         //        int max= (int)1e6+1;
 //        long[] arr=new long[max];
