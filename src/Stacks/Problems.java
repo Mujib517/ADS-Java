@@ -34,4 +34,22 @@ public class Problems {
         return true;
 
     }
+
+    public static boolean hasBalancedParenthsis2(String str) {
+        int p1 = 0;
+        int p2 = str.length() - 1;
+
+        while (p1 <= p2) {
+            char c1 = str.charAt(p1);
+            char c2 = str.charAt(p2);
+
+            if (c1 == '(' && c2 != ')') return false;
+            if (c1 == '[' && c2 != ']') return false;
+            if (c1 == '{' && c2 != '}') return false;
+
+            p1++;
+            p2--;
+        }
+        return true;
+    }
 }
