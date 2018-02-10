@@ -4,6 +4,7 @@ import java.util.Stack;
 
 public class Problems {
 
+    //O(N),O(N)
     public static boolean hasBalancedParenthesis(String str) {
         Stack<Character> s = new Stack<Character>();
 
@@ -35,6 +36,7 @@ public class Problems {
 
     }
 
+    //O(N),O(1)
     public static boolean hasBalancedParenthsis2(String str) {
         int p1 = 0;
         int p2 = str.length() - 1;
@@ -51,5 +53,19 @@ public class Problems {
             p2--;
         }
         return true;
+    }
+
+    //O(N^2)
+    public static void stockSpan(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            int j = i - 1;
+            int span = 1;
+            while (j >= 0) {
+                if (arr[i] >= arr[j]) span++;
+                j--;
+            }
+
+            System.out.print(span + " ");
+        }
     }
 }
