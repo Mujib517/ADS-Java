@@ -99,4 +99,25 @@ public class Problems {
 
         System.out.println();
     }
+
+    public static void printNxtGrtElem(int[] arr, int n) {
+        int[] res = new int[n];
+        int max = -1;
+        res[n - 1] = max;
+        max = arr[n - 1];
+
+        for (int i = n - 2; i >= 0; i--) {
+            if (arr[i + 1] > arr[i]) {
+                res[i] = arr[i + 1];
+            } else {
+                res[i] = arr[i] < max ? max : -1;
+            }
+            max = Math.max(arr[i], max);
+        }
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(res[i] + " ");
+        }
+        System.out.println();
+    }
 }
