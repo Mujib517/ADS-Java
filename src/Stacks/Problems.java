@@ -120,4 +120,26 @@ public class Problems {
         }
         System.out.println();
     }
+
+    //using stack. O(N),O(N)
+    public static void printNxtGrtElem2(int[] arr, int n) {
+        if (n == 0) return;
+
+        Stack<Integer> s = new Stack<>();
+        s.push(arr[0]);
+
+        for (int i = 1; i < n; i++) {
+
+            int next = arr[i];
+
+            if (next > s.peek()) {
+                while (!s.isEmpty() && s.peek() < next) {
+                    System.out.println(s.pop() + " --> " + next);
+                }
+            }
+            s.push(next);
+        }
+
+        while (!s.isEmpty()) System.out.println(s.pop() + " --> -1");
+    }
 }
