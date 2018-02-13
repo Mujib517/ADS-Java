@@ -142,4 +142,31 @@ public class Problems {
 
         while (!s.isEmpty()) System.out.println(s.pop() + " --> -1");
     }
+
+    //Min brancket reverse to form a balanced string
+    public static int minimumBracketReversal(String str) {
+
+        if (str.length() % 2 != 0) return -1;
+
+        int p1 = 0, p2 = str.length() - 1;
+        int m = 0, n = 0;
+
+        while (p1 <= p2) {
+
+            if (str.charAt(p1) == '{' && str.charAt(p2) == '}') {
+                p1++;
+                p2--;
+                continue;
+            }
+            ;
+            if (str.charAt(p1) == '{') m++;
+            else n++;
+            if (str.charAt(p2) == '}') n++;
+            else m++;
+
+            p1++;
+            p2--;
+        }
+        return (m / 2) + (n / 2);
+    }
 }
