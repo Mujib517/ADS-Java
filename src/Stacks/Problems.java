@@ -169,4 +169,44 @@ public class Problems {
         }
         return (m / 2) + (n / 2);
     }
+
+    public static int evaluatePostfix(String str) throws Exception {
+        if (str.length() == 0) return -1;
+        Stack<Integer> s = new Stack<>();
+
+        for (int i = 0; i < str.length(); i++) {
+            Character ch = str.charAt(i);
+
+
+            if (isOperand(ch)) s.push(Integer.parseInt(ch.toString()));
+            else {
+                if (s.size() < 2) throw new Exception("Invalid Postfix Expression");
+
+                int b = s.pop();
+                int a = s.pop();
+
+                int res = calculate(a, b, ch);
+                s.push(res);
+            }
+        }
+        return s.pop();
+    }
+
+    private static int calculate(int a, int b, char ch) {
+        switch (ch) {
+            case '+':
+                return a + b;
+            case '-':
+                return a - b;
+            case '*':
+                return a * b;
+            case '/':
+                return a / b;
+        }
+        return 0;
+    }
+
+    private static boolean isOperand(char ch) {
+        return !(ch == '+' || ch == '-' || ch == '*' || ch == '/');
+    }
 }
