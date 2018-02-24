@@ -2,6 +2,14 @@ package Stacks;
 
 import java.util.Stack;
 
+/*
+    Important problems
+    1. prefix calculation
+    2. postfix calculation
+    3. max area under histogram
+    4. stock span
+ */
+
 public class Problems {
 
     //O(N),O(N)
@@ -211,6 +219,85 @@ public class Problems {
         return s.pop();
     }
 
+    public static int maxAreaBruteForce(int[] arr, int n) {
+        int max = getMax(arr, n);
+
+        for (int i = 1; i <= max; i++) {
+            int maxSofar = 0;
+            for (int j = 0; j < n; j++) {
+                if (arr[j] >= i) maxSofar += i;
+                else {
+                    max = Math.max(max, maxSofar);
+                    maxSofar = 0;
+                }
+            }
+            max = Math.max(max, maxSofar);
+        }
+        return max;
+    }
+
+    public static int maxArea(int[] arr, int n) {
+        Stack<Integer> heights = new Stack<>();
+        Stack<Integer> indexes = new Stack<>();
+        int largestSize = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (heights.isEmpty() || heights.peek() < arr[i]) {
+                heights.push(arr[i]);
+                indexes.push(i);
+            } else if (heights.peek() > arr[i]) {
+                int lastIndex = 0;
+
+                while (!heights.isEmpty() && heights.peek() > arr[i]) {
+                    lastIndex = indexes.pop();
+                    int tempArea = heights.pop() * (i - lastIndex);
+                    largestSize = Math.max(largestSize, tempArea);
+                }
+                heights.push(arr[i]);
+                indexes.push(lastIndex);
+            }
+        }
+        while (!heights.isEmpty()) {
+            int tempArea = heights.pop() * (n - indexes.pop()); //n last index
+            largestSize = Math.max(largestSize, tempArea);
+        }
+
+        return largestSize;
+    }
+
+    public static int maxAreaOptimalSpace(int[] arr, int n) {
+        Stack<Integer> s = new Stack<>();
+
+        int i = 0;
+        int max = 0;
+        while (i < n) {
+            if (s.isEmpty() || arr[s.peek()] <= arr[i]) s.push(i++);
+            else {
+                int top = s.pop();
+                int area = arr[top] * (s.isEmpty() ? i : i - s.peek() - 1);
+                max = Math.max(max, area);
+            }
+        }
+
+        while (!s.isEmpty()) {
+            int top = s.pop();
+            int area = arr[top] * (s.isEmpty() ? n : n - s.peek() - 1);
+            max = Math.max(max, area);
+        }
+
+        return max;
+    }
+
+
+    private static int getMax(int[] arr, int n) {
+        int max = arr[0];
+        for (int i = 1; i < n; i++) {
+            max = Math.max(max, arr[i]);
+        }
+        return max;
+    }
+
+
     private static int calculate(int a, int b, char ch) {
         switch (ch) {
             case '+':
@@ -228,4 +315,6 @@ public class Problems {
     private static boolean isOperand(char ch) {
         return !(ch == '+' || ch == '-' || ch == '*' || ch == '/');
     }
+
+
 }
