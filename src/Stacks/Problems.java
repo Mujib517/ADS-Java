@@ -192,6 +192,25 @@ public class Problems {
         return s.pop();
     }
 
+    public static int evaluatePrefix(String str) throws Exception {
+        if (str.length() == 0) return 0;
+
+        Stack<Integer> s = new Stack<>();
+
+        for (int i = str.length() - 1; i >= 0; i--) {
+            Character ch = str.charAt(i);
+            if (isOperand(ch)) s.push(Integer.parseInt(ch.toString()));
+            else {
+                if (s.size() < 2) throw new Exception("Invalid Prefix Expression");
+                int a = s.pop();
+                int b = s.pop();
+                int result = calculate(a, b, ch);
+                s.push(result);
+            }
+        }
+        return s.pop();
+    }
+
     private static int calculate(int a, int b, char ch) {
         switch (ch) {
             case '+':
