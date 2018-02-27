@@ -288,6 +288,35 @@ public class Problems {
         return max;
     }
 
+    public static String toPostfix(String infix) {
+        Stack<Character> s = new Stack<>();
+        String result = "";
+
+        for (int i = 0; i < infix.length(); i++) {
+            char ch = infix.charAt(i);
+
+            if (!isOperand(ch)) {
+                if (!s.isEmpty()) {
+                    char top = s.peek();
+                    while (!s.isEmpty() && hasHigherPrecedence(ch, top)) {
+                        result += s.pop();
+                    }
+                }
+                s.push(ch);
+            } else result += ch;
+        }
+
+        while (!s.isEmpty()) {
+            result += s.pop();
+        }
+
+        return result;
+    }
+
+    private static boolean hasHigherPrecedence(char ch, char top) {
+        return (ch == '+' || ch == '-') && (top == '*' || top == '/');
+    }
+
 
     private static int getMax(int[] arr, int n) {
         int max = arr[0];
@@ -315,6 +344,4 @@ public class Problems {
     private static boolean isOperand(char ch) {
         return !(ch == '+' || ch == '-' || ch == '*' || ch == '/');
     }
-
-
 }
