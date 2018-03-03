@@ -299,12 +299,12 @@ public class Problems {
                 while (!s.isEmpty() && s.peek() != '(') {
                     result += s.pop();
                 }
-               if(!s.isEmpty()) s.pop();
+                if (!s.isEmpty()) s.pop();
             } else if (!isOperand(ch)) {
                 if (!s.isEmpty()) {
                     char top = s.peek();
-                    if(top=='(') s.pop();
-                    else{
+                    if (top == '(') s.pop();
+                    else {
                         while (!s.isEmpty() && hasHigherPrecedence(ch, top)) {
                             result += s.pop();
                         }
@@ -317,6 +317,27 @@ public class Problems {
 
         while (!s.isEmpty()) {
             result += s.pop();
+        }
+
+        return result;
+    }
+
+    //O(N^2)
+    public static Stack<Integer> sort(Stack<Integer> s) {
+
+        Stack<Integer> result = new Stack<>();
+
+        while (!s.isEmpty()) {
+
+            int curr = s.pop();
+
+            if (result.isEmpty() || result.peek() <= curr) result.push(curr);
+            else {
+                while (!result.isEmpty() && result.peek() > curr) {
+                    s.push(result.pop());
+                }
+                result.push(curr);
+            }
         }
 
         return result;
