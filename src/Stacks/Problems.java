@@ -343,6 +343,25 @@ public class Problems {
         return result;
     }
 
+    //No Extra space
+    public static void sortRecursive(Stack<Integer> s) {
+        if (s.isEmpty()) return;
+        int top = s.pop();
+        sort2(s);
+        insert(s, top);
+    }
+
+    private static void insert(Stack<Integer> s, int elem) {
+        if (s.isEmpty() || s.peek() <= elem) {
+            s.push(elem);
+            return;
+        }
+        int top = s.pop();
+        insert(s, elem);
+        s.push(top);
+
+    }
+
     private static boolean hasHigherPrecedence(char ch, char top) {
         return (ch == '+' || ch == '-') && (top == '*' || top == '/');
     }
