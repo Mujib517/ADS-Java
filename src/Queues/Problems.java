@@ -44,4 +44,22 @@ public class Problems {
         return result;
 
     }
+
+    public static Queue<Integer> reverseKElements2(Queue<Integer> q, int k) {
+        Stack<Integer> s = new Stack<>();
+        int size = q.size();
+
+        for (int i = 0; i < k; i++) {
+            if (!s.isEmpty())
+                s.push(q.poll());
+        }
+
+        while (!s.isEmpty()) q.add(s.pop());
+
+        for (int i = k; i < size; i++) {
+            q.add(q.poll());
+        }
+
+        return q;
+    }
 }
