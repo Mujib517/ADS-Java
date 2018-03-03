@@ -347,7 +347,7 @@ public class Problems {
     public static void sortRecursive(Stack<Integer> s) {
         if (s.isEmpty()) return;
         int top = s.pop();
-        sort2(s);
+        sortRecursive(s);
         insert(s, top);
     }
 
