@@ -3,6 +3,7 @@ package Queues;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Problems {
 
@@ -26,5 +27,21 @@ public class Problems {
         while (!q2.isEmpty()) System.out.print(q2.poll() + " ");
 
         System.out.println();
+    }
+
+    public static Queue<Integer> reverseKElements(Queue<Integer> q, int k) {
+        Stack<Integer> s = new Stack<>();
+        Queue<Integer> result = new LinkedList<>();
+
+        while (!q.isEmpty() && k > 0) {
+            k--;
+            s.push(q.poll());
+        }
+
+        while (!s.isEmpty()) result.add(s.pop());
+        while (!q.isEmpty()) result.add(q.poll());
+
+        return result;
+
     }
 }
