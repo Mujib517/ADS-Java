@@ -294,13 +294,22 @@ public class Problems {
 
         for (int i = 0; i < infix.length(); i++) {
             char ch = infix.charAt(i);
-
-            if (!isOperand(ch)) {
+            if (ch == '(') s.push(ch);
+            else if (ch == ')') {
+                while (!s.isEmpty() && s.peek() != '(') {
+                    result += s.pop();
+                }
+               if(!s.isEmpty()) s.pop();
+            } else if (!isOperand(ch)) {
                 if (!s.isEmpty()) {
                     char top = s.peek();
-                    while (!s.isEmpty() && hasHigherPrecedence(ch, top)) {
-                        result += s.pop();
+                    if(top=='(') s.pop();
+                    else{
+                        while (!s.isEmpty() && hasHigherPrecedence(ch, top)) {
+                            result += s.pop();
+                        }
                     }
+
                 }
                 s.push(ch);
             } else result += ch;
