@@ -62,4 +62,66 @@ public class Problems {
 
         return q;
     }
+
+    //O(N*K)
+    public static void slidingWindowMax(int[] arr, int k) {
+        if (k > arr.length) return;
+
+        for (int i = 0; i < arr.length - k + 1; i++) {
+            System.out.print(getMin(arr, i, i + k) + " ");
+        }
+
+        System.out.println();
+    }
+
+    //O(N), O(2K) space
+    public static void slidingWindowMax2(int[] arr, int k) {
+        if (k > arr.length) return;
+
+        Queue<Integer> q = new LinkedList<>();
+        Stack<Integer> s = new Stack<>();
+
+        for (int i = 0; i < k; i++) insert(arr[i], q, s);
+        System.out.print(s.peek() + " ");
+
+        for (int i = k; i < arr.length; i++) {
+            s.pop();
+            q.poll();
+            insert(arr[i], q, s);
+            System.out.print(s.peek() + " ");
+        }
+
+        System.out.println();
+    }
+
+    private static void insert(int i, Queue<Integer> q, Stack<Integer> s) {
+        if (q.isEmpty()) {
+            q.add(i);
+            s.push(i);
+        } else {
+            int max = Math.max(s.peek(), i);
+            q.add(i);
+            s.push(max);
+        }
+    }
+
+    private static int getMin(int[] arr, int start, int end) {
+        int max = arr[start];
+
+        for (int i = start + 1; i < end; i++) {
+            max = Math.max(max, arr[i]);
+        }
+
+        return max;
+    }
+}
+
+class Data {
+    public int value;
+    public int max;
+
+    public Data(int value, int max) {
+        this.value = value;
+        this.max = max;
+    }
 }
