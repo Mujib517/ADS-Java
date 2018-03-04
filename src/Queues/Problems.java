@@ -1,6 +1,5 @@
 package Queues;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -116,12 +115,3 @@ public class Problems {
     }
 }
 
-class Data {
-    public int value;
-    public int max;
-
-    public Data(int value, int max) {
-        this.value = value;
-        this.max = max;
-    }
-}
