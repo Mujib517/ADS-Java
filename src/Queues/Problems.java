@@ -79,11 +79,12 @@ public class Problems {
 
         Queue<Integer> q = new LinkedList<>();
         Stack<Integer> s = new Stack<>();
+        int i = 0;
 
-        for (int i = 0; i < k; i++) insert(arr[i], q, s);
+        for (; i < k; i++) insert(arr[i], q, s);
         System.out.print(s.peek() + " ");
 
-        for (int i = k; i < arr.length; i++) {
+        for (; i < arr.length; i++) {
             s.pop();
             q.poll();
             insert(arr[i], q, s);
