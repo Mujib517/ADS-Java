@@ -29,4 +29,24 @@ public class Problems {
         if (k == 1) return n;
         return n * pow(n, k - 1);
     }
+
+    public static int sumOfDigits(int number) {
+        int sum = 0;
+
+        while (number > 0) {
+            int digit = number % 10;
+            number = number / 10;
+            sum += digit;
+        }
+
+        return sum;
+    }
+
+    public static int sumOfDigitsRecursive(int number) {
+
+        if (number <= 0) return 0;
+
+        int digit = number % 10;
+        return digit + sumOfDigits(number / 10);
+    }
 }
