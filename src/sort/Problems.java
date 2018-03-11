@@ -55,6 +55,26 @@ public class Problems {
         }
     }
 
+    public static void insertionSort(int[] arr, int n) {
+
+        for (int i = 1; i < n; i++) {
+
+            int j = i;
+
+            while (j > 0) {
+
+                if (arr[j - 1] > arr[j]) {
+                    int temp = arr[j - 1];
+                    arr[j - 1] = arr[j];
+                    arr[j] = temp;
+                } else break;
+
+                j--;
+            }
+            printArray(arr, n);
+        }
+    }
+
 
     private static void printArray(int[] arr, int n) {
         for (int el : arr) {
