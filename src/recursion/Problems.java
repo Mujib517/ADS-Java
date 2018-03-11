@@ -50,12 +50,19 @@ public class Problems {
         return digit + sumOfDigits(number / 10);
     }
 
-
     public static String decToBin(int n) {
 
         if (n == 0) return "0";
 
         int result = n % 2;
         return decToBin(n / 2) + result;
+    }
+
+    public static void toh(int n, char a, char b, char c) {
+
+        if (n == 0) return;
+        toh(n - 1, a, c, b);
+        System.out.println(a + " --> " + c);
+        toh(n - 1, b, a, c);
     }
 }
