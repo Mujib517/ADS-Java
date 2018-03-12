@@ -50,6 +50,7 @@ public class Problems {
         return digit + sumOfDigits(number / 10);
     }
 
+
     public static String decToBin(int n) {
 
         if (n == 0) return "0";
@@ -63,5 +64,13 @@ public class Problems {
 
         min = Math.min(min, arr[i]);
         return findMin(arr, i + 1, min);
+    }
+
+    public static void toh(int n, char a, char b, char c) {
+
+        if (n == 0) return;
+        toh(n - 1, a, c, b);
+        System.out.println(a + " --> " + c);
+        toh(n - 1, b, a, c);
     }
 }
