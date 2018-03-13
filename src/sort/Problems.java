@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.Arrays;
+
 public class Problems {
 
     public static void bubbleSortNaive(int[] arr, int n) {
@@ -75,8 +77,23 @@ public class Problems {
         }
     }
 
+    public static void countSort(int[] arr, int n) {
+        int[] count = new int[10];
 
-    private static void printArray(int[] arr, int n) {
+        for (int i = 0; i < n; i++) {
+            count[arr[i]]++;
+        }
+
+        for (int i = 0; i < count.length; i++) {
+            int c = count[i];
+            while (c > 0) {
+                System.out.print(i + " ");
+                c--;
+            }
+        }
+    }
+
+    public static void printArray(int[] arr, int n) {
         for (int el : arr) {
             System.out.print(el + " ");
         }
