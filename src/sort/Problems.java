@@ -77,10 +77,34 @@ public class Problems {
         }
     }
 
-
     public static void mergeSort(int[] arr, int n) {
         int[] temp = new int[n];
         mergeSort(arr, temp, 0, n - 1);
+    }
+
+    public static void quicksort(int[] arr, int n) {
+        quicksort(arr, 0, n - 1);
+    }
+
+    private static void quicksort(int[] arr, int low, int high) {
+        if (low == high) return;
+        int pIndex = getPartitionIndex(arr, low, high);
+        quicksort(arr, low, pIndex);
+        quicksort(arr, pIndex + 1, high);
+    }
+
+    private static int getPartitionIndex(int[] arr, int low, int high) {
+        while (low < high) {
+            int pivot = (low + high) / 2;
+
+            while (arr[low] < arr[pivot]) low++;
+            while (arr[high] > arr[pivot]) high--;
+
+            int temp = arr[low];
+            arr[low] = arr[high];
+            arr[high] = temp;
+        }
+        return low;
     }
 
     private static void mergeSort(int[] arr, int[] temp, int low, int high) {
@@ -93,7 +117,6 @@ public class Problems {
         merge(arr, temp, low, high);
 
     }
-
 
     private static void merge(int[] arr, int[] c, int low, int high) {
 
@@ -109,7 +132,6 @@ public class Problems {
 
         System.arraycopy(c, low, arr, low, high - low + 1);
     }
-
 
     private static void printArray(int[] arr, int n) {
         for (int el : arr) {
