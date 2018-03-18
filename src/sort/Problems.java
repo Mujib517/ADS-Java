@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.Arrays;
+
 public class Problems {
 
     public static void bubbleSortNaive(int[] arr, int n) {

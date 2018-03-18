@@ -50,12 +50,20 @@ public class Problems {
         return digit + sumOfDigits(number / 10);
     }
 
+
     public static String decToBin(int n) {
 
         if (n == 0) return "0";
 
         int result = n % 2;
         return decToBin(n / 2) + result;
+    }
+
+    public static int findMin(int[] arr, int i, int min) {
+        if (arr.length == i) return min;
+
+        min = Math.min(min, arr[i]);
+        return findMin(arr, i + 1, min);
     }
 
     public static void toh(int n, char a, char b, char c) {
