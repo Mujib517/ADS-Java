@@ -4,6 +4,8 @@ package sort;
          * Important problems: MergeSort, QuickSort and Count Sort
          * */
 
+import java.util.Arrays;
+
 public class Problems {
 
     public static void bubbleSortNaive(int[] arr, int n) {
@@ -101,6 +103,41 @@ public class Problems {
                 arr[p1++] = 0;
             }
         }
+    }
+
+    //arr[i]+arr[j]=k; i!=j i<j
+    public static int countPairs(int[] arr, int n, int k) {
+
+        int count = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            for (int j = i + 1; j < n; j++) {
+
+                if (arr[i] + arr[j] == k) count++;
+            }
+        }
+
+        return count;
+    }
+
+    public static int countPairs2(int[] arr, int n, int k) {
+        Arrays.sort(arr);
+
+        int p1 = 0, p2 = n - 1, count = 0;
+
+        while (p1 < p2) {
+            int sum = arr[p1] + arr[p2];
+
+            if (sum > k) p2--;
+            else if (sum < k) p1++;
+            else {
+                count++;
+                p2--;
+                p1++;
+            }
+        }
+        return count;
     }
 
     private static void quicksort(int[] arr, int low, int high) {
