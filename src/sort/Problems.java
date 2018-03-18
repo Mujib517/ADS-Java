@@ -1,6 +1,8 @@
 package sort;
 
-import java.util.Arrays;
+/*
+* Important problems: MergeSort, QuickSort and Count Sort
+* */
 
 public class Problems {
 
