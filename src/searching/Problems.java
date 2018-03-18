@@ -69,6 +69,22 @@ public class Problems {
         return mid + 1;
     }
 
+    //arr: 5,6,7,8,10,15
+    //arr[i]= i+arr[0]
+    public static int findFirstMissingNumber2(int[] arr, int n) {
+        int lo = 0, hi = n - 1;
+        int mid = 0;
+
+        while (lo <= hi) {
+            mid = lo + (hi - lo) / 2;
+            int val = mid + arr[0];
+            if (arr[mid] == val) lo = mid + 1;
+            else if (arr[mid] > val) hi = mid - 1;
+        }
+
+        return mid + arr[0] + 1;
+    }
+
     private static boolean binSearch(int[] arr, int k, int start, int end) {
 
         if (start > end) return false;
