@@ -1,8 +1,8 @@
 package sort;
 
-/*
-* Important problems: MergeSort, QuickSort and Count Sort
-* */
+        /*
+         * Important problems: MergeSort, QuickSort and Count Sort
+         * */
 
 public class Problems {
 
@@ -86,6 +86,21 @@ public class Problems {
 
     public static void quicksort(int[] arr, int n) {
         quicksort(arr, 0, n - 1);
+    }
+
+    public static void sort10s(int[] arr, int n) {
+        int p1 = 0, p2 = n - 1;
+
+        while (p1 < p2) {
+
+            if (arr[p1] == 0) p1++;
+            if (arr[p2] == 1) p2--;
+
+            if (arr[p1] == 1 && arr[p2] == 0) {
+                arr[p2--] = 1;
+                arr[p1++] = 0;
+            }
+        }
     }
 
     private static void quicksort(int[] arr, int low, int high) {
