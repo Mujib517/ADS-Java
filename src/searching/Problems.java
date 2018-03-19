@@ -85,6 +85,30 @@ public class Problems {
         return mid + arr[0] + 1;
     }
 
+    //O(N)
+    public static int ceil(int[] arr, int n, int k) {
+        for (int i = 0; i < n; i++) {
+            if (arr[i] >= k) return arr[i];
+        }
+
+        return -1;
+    }
+
+    //Log(N)
+    public static int ceil2(int[] arr, int n, int k) {
+        int low = 0, high = n - 1;
+        int mid = Integer.MIN_VALUE;
+
+        while (low < high) {
+            mid = low + (high - low) / 2;
+            if (arr[mid] == k) return arr[mid];
+            if (arr[mid] > k) high = mid;
+            else if (arr[mid] < k) low = mid + 1;
+        }
+
+        return arr[mid] >= k ? arr[mid] : -1;
+    }
+
     private static boolean binSearch(int[] arr, int k, int start, int end) {
 
         if (start > end) return false;
