@@ -106,7 +106,36 @@ public class Problems {
             else if (arr[mid] < k) low = mid + 1;
         }
 
-        return arr[mid] >= k ? arr[mid] : -1;
+        return arr[low] >= k ? arr[low] : -1;
+    }
+
+    public static int ceilRecursive(int[] arr, int low, int high, int k) {
+
+        if (low > high) return -1;
+
+        if (arr[low] >= k) return arr[low];
+
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] == k) return arr[mid];
+        if (arr[mid] < k) return ceilRecursive(arr, mid + 1, high, k);
+        return ceilRecursive(arr, low, mid - 1, k);
+    }
+
+    public static int floor(int[] arr, int low, int high, int k) {
+
+        if (low > high) return -1;
+
+        if (arr[high] < k) return arr[high];
+
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == k) return arr[mid];
+
+        if (mid > 0 && arr[mid - 1] <= k && k < arr[mid]) return arr[mid - 1];
+
+        if (k < arr[mid]) return floor(arr, low, mid - 1, k);
+        return floor(arr, mid + 1, high, k);
+
     }
 
     private static boolean binSearch(int[] arr, int k, int start, int end) {
