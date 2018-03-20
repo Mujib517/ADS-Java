@@ -138,6 +138,34 @@ public class Problems {
 
     }
 
+    // -8 -3 -2 -1 1 2 3 4 5 6
+    public static int firstPositiveNumber(int[] arr, int low, int high) {
+        while (low < high) {
+
+            int mid = low + (high - low) / 2;
+
+            if (arr[mid] == 0) return arr[mid + 1];
+            if (arr[mid] < 0) low = mid + 1;
+            else if (arr[mid] > 0) high = mid;
+        }
+
+        return arr[low] > 0 ? arr[low] : -1;
+    }
+
+    public static int findFirstTrue(boolean[] arr, int low, int high) {
+        if (arr[low]) return 0;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (mid > 0 && arr[mid] && !arr[mid - 1]) return mid;
+            if (arr[mid]) high = mid;
+            else low = mid + 1;
+        }
+
+        return -1;
+    }
+
     private static boolean binSearch(int[] arr, int k, int start, int end) {
 
         if (start > end) return false;
