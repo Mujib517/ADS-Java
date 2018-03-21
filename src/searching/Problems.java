@@ -166,6 +166,30 @@ public class Problems {
         return -1;
     }
 
+    //MLog(N)
+    public static boolean binSearch(int[][] arr, int m, int n, int k) {
+        for (int i = 0; i < m; i++) {
+            if (search(arr, i, n, k) != -1) return true;
+        }
+        return false;
+    }
+
+    private static int search(int[][] arr, int idx, int m, int k) {
+        int low = 0, high = m - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (arr[idx][mid] == k) return mid;
+
+            if (arr[idx][mid] < k) low = mid + 1;
+
+            else high = mid - 1;
+        }
+        return -1;
+    }
+
+
     private static boolean binSearch(int[] arr, int k, int start, int end) {
 
         if (start > end) return false;
