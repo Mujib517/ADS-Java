@@ -166,6 +166,45 @@ public class Problems {
         return -1;
     }
 
+    // arr: 0 1 2 3 3 3 3 3 3 4
+    public static int firstOccurence(int[] arr, int n, int k) {
+        int low = 0, high = n - 1;
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+
+            if (mid > 0 && arr[mid - 1] != k && arr[mid] == k) return mid;
+            if (arr[mid] == k) high = mid;
+            else if (arr[mid] > k) high = mid - 1;
+            else low = mid + 1;
+        }
+
+        return arr[low] == k ? low : -1;
+    }
+
+    public static int lastOccurence(int[] arr, int n, int k) {
+        int low = 0, high = n - 1;
+
+        while (low < high) {
+
+            int mid = low + (high - low) / 2;
+
+            if (mid < n - 1 && arr[mid + 1] != k && arr[mid] == k) return mid;
+            if (arr[mid] == k) low = mid;
+            else if (arr[mid] < k) low = mid + 1;
+            else high = mid - 1;
+        }
+
+        return arr[high] == k ? high : -1;
+    }
+
+    public static int countFrequency(int[] arr, int n, int k) {
+        int start = firstOccurence(arr, n, k);
+        int end = lastOccurence(arr, n, k);
+
+        return start == -1 || end == -1 ? 0 : end - start + 1;
+    }
+
     private static boolean binSearch(int[] arr, int k, int start, int end) {
 
         if (start > end) return false;
