@@ -166,7 +166,7 @@ public class Problems {
         return -1;
     }
 
-    //MLog(N)
+    //MLog(N) after improvement M+LogN
     public static boolean binSearch(int[][] arr, int m, int n, int k) {
         for (int i = 0; i < m; i++) {
 
