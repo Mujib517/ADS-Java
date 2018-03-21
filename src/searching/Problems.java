@@ -169,12 +169,16 @@ public class Problems {
     //MLog(N)
     public static boolean binSearch(int[][] arr, int m, int n, int k) {
         for (int i = 0; i < m; i++) {
+
+            if (arr[i][n - 1] < k) continue;
+
             if (search(arr, i, n, k) != -1) return true;
         }
         return false;
     }
 
     private static int search(int[][] arr, int idx, int m, int k) {
+        System.out.println("Called..");
         int low = 0, high = m - 1;
 
         while (low <= high) {
