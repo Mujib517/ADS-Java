@@ -205,6 +205,20 @@ public class Problems {
         return start == -1 || end == -1 ? 0 : end - start + 1;
     }
 
+//    public static int filePartition(int[] arr, int n, int k) {
+//        int low = arr[0], high = arr[n - 1];
+//
+//        while (low < high) {
+//            int mid = low + (high - low) / 2;
+//
+//            isFeasible(arr,)
+//        }
+//    }
+
+//    private static boolean isFeasible(int[] arr, int k) {
+//
+//    }
+
     private static boolean binSearch(int[] arr, int k, int start, int end) {
 
         if (start > end) return false;
