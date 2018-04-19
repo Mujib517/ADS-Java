@@ -2,15 +2,30 @@ import LinkedLists.Node;
 import LinkedLists.Problems;
 import Stacks.MinStack;
 import Stacks.Stack;
+import heaps.MaxHeap;
+import heaps.MinHeap;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
-        int[] arr = new int[]{10, 20, 4, 5, 80, 10, 20, 30};
-        System.out.println(recursion.Problems.findMin(arr, 0, Integer.MAX_VALUE));
+    public static void main(String[] args) throws Exception {
+
+        MaxHeap h = new MaxHeap();
+        h.add(10);
+        h.add(30);
+        h.add(40);
+        h.add(20);
+        h.add(120);
+
+        System.out.println(h.poll());
+        System.out.println(h.poll());
+        System.out.println(h.poll());
+        System.out.println(h.poll());
+        System.out.println(h.poll());
+
+
     }
 }
 
