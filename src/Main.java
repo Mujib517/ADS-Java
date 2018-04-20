@@ -9,8 +9,8 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) {
-        int[] arr = new int[]{10, 20, 4, 5, 80, 10, 20, 30};
-        System.out.println(recursion.Problems.findMin(arr, 0, Integer.MAX_VALUE));
+        int[] arr = new int[]{12, 4, 5, 3, 8, 7};
+        heaps.Problems.runningMedian(arr, arr.length);
     }
 }
 
