@@ -44,45 +44,38 @@ public class Problems {
         System.out.println();
     }
 
-    public static void runningMedian(int[] arr, int n) {
-        if (n == 0) return;
+    public static double[] runningMedian(int[] arr) {
+        int n = arr.length;
+        double[] result = new double[n];
 
         PriorityQueue<Integer> min = new PriorityQueue<>();
         PriorityQueue<Integer> max = new PriorityQueue<>(Comparator.reverseOrder());
 
-        max.add(arr[0]);
-        print(min, max);
+        for (int i = 0; i < n; i++) {
 
-        for (int i = 1; i < n; i++) {
-
-            if (max.peek() > arr[i]) max.add(arr[i]);
-            else min.add(arr[i]);
+            if (min.size() == 0 || min.peek() < arr[i]) min.add(arr[i]);
+            else max.add(arr[i]);
 
             balanceHeaps(min, max);
-            print(min, max);
+            result[i] = getMedian(min, max);
         }
+        return result;
     }
 
-    private static void print(PriorityQueue<Integer> min, PriorityQueue<Integer> max) {
-        if (min.size() == 0) {
-            System.out.print((double) max.peek() + " ");
-            return;
-        }
-
+    private static double getMedian(PriorityQueue<Integer> min, PriorityQueue<Integer> max) {
         if (min.size() == max.size()) {
-            double item = ((min.peek() + max.peek()) / 2.0);
-            System.out.print(item + " ");
-
-        } else {
-            System.out.print((double) min.peek() + " ");
+            return ((double) min.peek() + max.peek()) / 2;
         }
-    }
 
+        PriorityQueue<Integer> bigger = min.size() > max.size() ? min : max;
+
+        return bigger.peek();
+
+    }
 
     private static void balanceHeaps(PriorityQueue<Integer> min, PriorityQueue<Integer> max) {
         PriorityQueue<Integer> bigger = min.size() > max.size() ? min : max;
         PriorityQueue<Integer> smaller = min.size() < max.size() ? min : max;
-        if (bigger.size() - smaller.size() <= 1) return;
-        smaller.add(bigger.poll());
+        if (bigger.size() - smaller.size() >= 2) smaller.add(bigger.poll());
     }
 }
