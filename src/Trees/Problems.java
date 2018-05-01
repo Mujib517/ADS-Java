@@ -69,6 +69,16 @@ public class Problems {
         return false;
     }
 
+    public static int height(TNode root) {
+
+        if (root == null) return -1;
+
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
     private static void add(TNode temp, int val) {
         if (temp == null) return;
 
