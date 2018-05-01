@@ -1,5 +1,8 @@
 package Trees;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Problems {
 
     public static TNode buildTree(int[] arr, int n) {
@@ -77,6 +80,42 @@ public class Problems {
         int rightHeight = height(root.right);
 
         return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    public static void levelOrder(TNode root) {
+        if (root == null) return;
+
+        Queue<TNode> q = new LinkedList<>();
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            TNode node = q.poll();
+            System.out.print(node.data + " ");
+            if (node.left != null) q.add(node.left);
+            if (node.right != null) q.add(node.right);
+        }
+    }
+
+    public static void levelOrder2(TNode root) {
+        if (root == null) return;
+
+        Queue<TNode> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+
+        while (!q.isEmpty()) {
+            TNode node = q.poll();
+
+            if (node == null) {
+                System.out.println();
+                if (!q.isEmpty()) q.add(null);
+            } else {
+
+                System.out.print(node.data + " ");
+                if (node.left != null) q.add(node.left);
+                if (node.right != null) q.add(node.right);
+            }
+        }
     }
 
     private static void add(TNode temp, int val) {
