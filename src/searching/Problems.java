@@ -166,6 +166,34 @@ public class Problems {
         return -1;
     }
 
+    //MLog(N) after improvement M+LogN
+    public static boolean binSearch(int[][] arr, int m, int n, int k) {
+        for (int i = 0; i < m; i++) {
+
+            if (arr[i][n - 1] < k) continue;
+
+            if (search(arr, i, n, k) != -1) return true;
+        }
+        return false;
+    }
+
+    private static int search(int[][] arr, int idx, int m, int k) {
+        System.out.println("Called..");
+        int low = 0, high = m - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (arr[idx][mid] == k) return mid;
+
+            if (arr[idx][mid] < k) low = mid + 1;
+
+            else high = mid - 1;
+        }
+        return -1;
+    }
+
+
     // arr: 0 1 2 3 3 3 3 3 3 4
     public static int firstOccurence(int[] arr, int n, int k) {
         int low = 0, high = n - 1;
