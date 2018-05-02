@@ -2,6 +2,10 @@ package Trees;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Problems {
 
@@ -70,6 +74,34 @@ public class Problems {
         }
 
         return false;
+    }
+
+    public static void spiralOrder(TNode root) {
+        if (root == null) return;
+        Stack<TNode> s1 = new Stack<>();
+        Stack<TNode> s2 = new Stack<>();
+
+        s1.push(root);
+
+        while (!s1.isEmpty() || !s2.isEmpty()) {
+
+            while (!s1.isEmpty()) {
+                TNode node = s1.pop();
+                System.out.print(node.data + " ");
+
+                if (node.right != null) s2.push(node.right);
+                if (node.left != null) s2.push(node.left);
+            }
+
+
+            while (!s2.isEmpty()) {
+                TNode node = s2.pop();
+                System.out.print(node.data + " ");
+
+                if (node.left != null) s1.push(node.left);
+                if (node.right != null) s1.push(node.right);
+            }
+        }
     }
 
     public static int height(TNode root) {
