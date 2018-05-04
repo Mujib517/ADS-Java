@@ -156,6 +156,31 @@ public class Problems {
         return isBST(root.left, min, root.data) && isBST(root.right, root.data, max);
     }
 
+    public static void delete(TNode root, int val) {
+
+    }
+
+    public static TNode[] findparent(TNode root, int val) {
+        if (root == null) return null;
+
+        TNode[] nodes = new TNode[2];
+        nodes[0] = null;
+
+        while (root != null) {
+
+            if (root.data == val) {
+                nodes[1] = root;
+                break;
+            }
+            nodes[0] = root;
+            if (root.data > val) root = root.left;
+            else root = root.right;
+        }
+
+        return nodes;
+    }
+
+
     private static void add(TNode temp, int val) {
         if (temp == null) return;
 
