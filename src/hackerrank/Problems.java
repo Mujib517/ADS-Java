@@ -1,5 +1,6 @@
 package hackerrank;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -52,5 +53,19 @@ public class Problems {
             p2++;
         }
         return min;
+    }
+
+    //https://www.hackerrank.com/challenges/marcs-cakewalk/problem
+    // arr[0]*2^0 + arr[1]*2^1 .... Find min miles to walk
+    public static long milesToWalk(Integer[] arr, int n) {
+        Arrays.sort(arr, Comparator.reverseOrder());
+
+        long sum = 0;
+
+        for (int i = 0; i < n; i++) {
+            sum += arr[i] * Math.pow(2, i);
+        }
+
+        return sum;
     }
 }
