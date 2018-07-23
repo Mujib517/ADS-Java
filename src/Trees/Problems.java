@@ -187,6 +187,8 @@ public class Problems {
         return result == null ? -1 : result.data;
     }
 
+    //Clue: Calculate depth of a node. Right child is at the same depth as that of root
+    //Depth of left child is depth(root)+1
     public static void diagonalSum(TNode root) {
         HashMap<Integer, Integer> sum = new HashMap<>();
 
