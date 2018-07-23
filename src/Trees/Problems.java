@@ -1,8 +1,6 @@
 package Trees;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -180,6 +178,154 @@ public class Problems {
         return nodes;
     }
 
+    public static int lca(TNode root, int n1, int n2) {
+
+        TNode nd1 = findNode(root, n1);
+        TNode nd2 = findNode(root, n2);
+        TNode result = lca(root, nd1, nd2);
+
+        return result == null ? -1 : result.data;
+    }
+
+    public static void diagonalSum(TNode root) {
+        HashMap<Integer, Integer> sum = new HashMap<>();
+
+        diagonalSum(root, 0, sum);
+
+        for (Integer key : sum.keySet()) {
+            System.out.println(sum.get(key));
+        }
+
+    }
+
+    //Given a pre order traversal array find if every node has only one child
+    //Clue: All preceding elments are higher and all subsequent elements are lower the every node will have one child
+    //Ex: {9,8,5,7,6} True, {8,5,4,7,6} False
+    public static boolean hasOnlyOneChild(int[] arr) {
+        int n = arr.length;
+        int max = arr[n - 1], min = arr[n - 1];
+
+        for (int i = n - 2; i >= 0; i--) {
+
+            if (!(arr[i] > max || arr[i] < min)) return false;
+
+            max = Math.max(max, arr[i]);
+            min = Math.min(min, arr[i]);
+        }
+
+        return true;
+    }
+
+    public static void nodeWithNoSibling(TNode root) {
+        if (root == null) return;
+        if (root.left != null && root.right == null) System.out.print(root.left.data + " ");
+        else if (root.right != null && root.left == null) System.out.print(root.right.data + " ");
+
+        nodeWithNoSibling(root.left);
+        nodeWithNoSibling(root.right);
+    }
+
+    public static boolean isFBT(TNode root) {
+        if (root == null) return true;
+        if (hasOnlyOneChild(root)) return false;
+        return isFBT(root.left) && isFBT(root.right);
+    }
+
+    public static void leftView(TNode root) {
+        if (root == null) return;
+
+        int currentLevel = 0;
+
+        Queue<TNode> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        boolean print = true;
+
+        while (!q.isEmpty()) {
+
+            TNode nd = q.poll();
+            if (print) {
+                System.out.print(nd.data + " ");
+                print = false;
+            }
+            if (nd == null) {
+                if (q.size() != 0) q.add(null);
+                print = true;
+                currentLevel++;
+                continue;
+            }
+            if (nd.left != null) q.add(nd.left);
+            if (nd.right != null) q.add(nd.right);
+
+
+        }
+
+
+    }
+
+    //clue: Use horizontal distance. Left node Horizontal Distance: root distance -1,
+    //Right node horizontal distance: root distance+1
+    public static void verticalOrder(TNode root) {
+        Map<Integer, ArrayList<Integer>> map = new TreeMap<>();
+        verticalOrder(root, map, 0);
+
+        for (Integer item : map.keySet()) {
+            ArrayList<Integer> list = map.get(item);
+
+            for (Integer node : list) System.out.print(node + " ");
+
+            System.out.println();
+        }
+    }
+
+    private static void verticalOrder(TNode root, Map<Integer, ArrayList<Integer>> map, int hDistance) {
+        if (root == null) return;
+
+        if (map.containsKey(hDistance)) {
+            ArrayList<Integer> list = map.get(hDistance);
+            list.add(root.data);
+        } else {
+            ArrayList<Integer> list = new ArrayList<>();
+            list.add(root.data);
+            map.put(hDistance, list);
+        }
+
+        verticalOrder(root.left, map, hDistance - 1);
+        verticalOrder(root.right, map, hDistance + 1);
+    }
+
+    private static boolean hasOnlyOneChild(TNode root) {
+        return (root.right != null && root.left == null) || (root.right == null && root.left != null);
+    }
+
+    private static void diagonalSum(TNode root, int depth, HashMap<Integer, Integer> sum) {
+        if (root == null) return;
+
+        if (sum.containsKey(depth)) sum.put(depth, sum.get(depth) + root.data);
+        else sum.put(depth, root.data);
+
+        diagonalSum(root.right, depth, sum);
+        diagonalSum(root.left, depth + 1, sum);
+    }
+
+    private static TNode findNode(TNode root, int n1) {
+        if (root == null) return null;
+        if (root.data == n1) return root;
+        if (root.data < n1) return findNode(root.right, n1);
+
+        return findNode(root.left, n1);
+    }
+
+    private static TNode lca(TNode root, TNode n1, TNode n2) {
+
+        if (root == null) return null;
+
+        if (n1.data < root.data && root.data < n2.data) return root;
+        if (n1.data == root.data || n2.data == root.data) return root;
+
+        if (n2.data < root.data) return lca(root.left, n1, n2);
+        return lca(root.right, n1, n2);
+    }
 
     private static void add(TNode temp, int val) {
         if (temp == null) return;
