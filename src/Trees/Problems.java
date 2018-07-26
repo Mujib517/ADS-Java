@@ -285,6 +285,13 @@ public class Problems {
         }
     }
 
+    public static void topView(TNode root) {
+        if (root == null) return;
+        System.out.println(root.data);
+        printLeft(root.left);
+        printRight(root.right);
+    }
+
     //clue: Use horizontal distance. Left node Horizontal Distance: root distance -1,
     //Right node horizontal distance: root distance+1
     public static void verticalOrder(TNode root) {
@@ -331,6 +338,52 @@ public class Problems {
     public static int count(TNode root) {
         if (root == null) return 0;
         return count(root.left) + count(root.right) + 1;
+    }
+
+    public static boolean areIdentical(TNode root1, TNode root2) {
+        if (root1 == null && root2 == null) return true;
+        if ((root1 == null && root2 != null) || (root1 != null && root2 == null)) return false;
+        if (root1.data != root2.data) return false;
+
+        return areIdentical(root1.left, root2.left) && areIdentical(root1.right, root2.right);
+    }
+
+    public static TNode mirrorTree(TNode root) {
+        if (root == null) return root;
+
+        TNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        return root;
+    }
+
+    public static int minDepth(TNode root) {
+        if (root == null) return 0;
+        int lDepth = minDepth(root.left);
+        int rDepth = minDepth(root.right);
+
+        return 1 + Math.min(lDepth, rDepth);
+    }
+
+    public static int maxDepth(TNode root) {
+        if (root == null) return 0;
+        int lDepth = maxDepth(root.left);
+        int rDepth = maxDepth(root.right);
+
+        return 1 + Math.max(lDepth, rDepth);
+    }
+
+    private static void printLeft(TNode root) {
+        if (root == null) return;
+        System.out.println(root.data);
+        printLeft(root.left);
+    }
+
+    private static void printRight(TNode root) {
+        if (root == null) return;
+        System.out.println(root.data);
+        printRight(root.right);
     }
 
     private static boolean isCBT(TNode root, boolean nonFullNodeSeen) {
