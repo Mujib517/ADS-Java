@@ -1,5 +1,7 @@
 package Trees;
 
+import LinkedLists.DNode;
+
 import java.util.*;
 
 import java.util.LinkedList;
@@ -236,8 +238,6 @@ public class Problems {
     public static void leftView(TNode root) {
         if (root == null) return;
 
-        int currentLevel = 0;
-
         Queue<TNode> q = new LinkedList<>();
         q.add(root);
         q.add(null);
@@ -253,16 +253,36 @@ public class Problems {
             if (nd == null) {
                 if (q.size() != 0) q.add(null);
                 print = true;
-                currentLevel++;
                 continue;
             }
             if (nd.left != null) q.add(nd.left);
             if (nd.right != null) q.add(nd.right);
-
-
         }
+    }
 
+    public static void rightView(TNode root) {
+        if (root == null) return;
+        Queue<TNode> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        boolean print = true;
 
+        while (!q.isEmpty()) {
+            TNode nd = q.poll();
+            if (nd == null) {
+                if (!q.isEmpty()) q.add(null);
+                print = true;
+                continue;
+            }
+
+            if (print) {
+                System.out.println(nd.data);
+                print = false;
+            }
+
+            if (nd.right != null) q.add(nd.right);
+            if (nd.left != null) q.add(nd.left);
+        }
     }
 
     //clue: Use horizontal distance. Left node Horizontal Distance: root distance -1,
@@ -278,6 +298,60 @@ public class Problems {
 
             System.out.println();
         }
+    }
+
+    public static void printNodeWithNoSibling(TNode root) {
+        if (root == null) return;
+        if (root.left != null && root.right == null) System.out.print(root.left.data + " ");
+        else if (root.right != null && root.left == null) System.out.print(root.right.data + " ");
+
+        printNodeWithNoSibling(root.left);
+        printNodeWithNoSibling(root.right);
+    }
+
+    //Clue: Should not be siblings and should be at the same level
+    public static boolean areCousins(TNode root, int n1, int n2) {
+        if (n1 == n2) return false;
+//        return areSiblings(root, n1, n2);
+        return !areSiblings(root, n1, n2) &&
+                (findLevel(root, n1, -1) == findLevel(root, n2, -1));
+    }
+
+    //Balanced tree = leftHeight-rightHeight<=1
+    public static boolean isBalnacedTree(TNode root) {
+        if (root == null) return true;
+        return Math.abs(height(root.left) - height(root.right)) <= 1;
+    }
+
+    //Complete binary tree: All the levels are filled except last level. Left most nodes are filled first than right most
+    public static boolean isCBT(TNode root) {
+        return isCBT(root, false);
+    }
+
+    public static int count(TNode root) {
+        if (root == null) return 0;
+        return count(root.left) + count(root.right) + 1;
+    }
+
+    private static boolean isCBT(TNode root, boolean nonFullNodeSeen) {
+        if (root == null) return true;
+        if (root.left == null && root.right != null) return false;
+        if (root.left == null) nonFullNodeSeen = true;
+        return isCBT(root.left, nonFullNodeSeen) && isCBT(root.right, nonFullNodeSeen);
+    }
+
+    private static boolean areSiblings(TNode root, int n1, int n2) {
+        if (root == null || root.left == null || root.right == null) return false;
+        if ((root.left.data == n1 && root.right.data == n2) || (root.left.data == n2 && root.right.data == n1))
+            return true;
+        return areSiblings(root.left, n1, n2) || areSiblings(root.right, n1, n2);
+    }
+
+    private static int findLevel(TNode root, int n1, int level) {
+        if (root == null || root.data == n1) return level;
+
+        int l = findLevel(root.left, n1, level + 1);
+        return l == -1 ? findLevel(root.right, n1, level + 1) : l;
     }
 
     private static void verticalOrder(TNode root, Map<Integer, ArrayList<Integer>> map, int hDistance) {
