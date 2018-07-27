@@ -374,6 +374,37 @@ public class Problems {
         return 1 + Math.max(lDepth, rDepth);
     }
 
+    //Build Balanced Binary tree from sorted array
+    public static TNode treeFromSortedArray(int[] sortedArray) {
+        return treeFromSortedArray(sortedArray, 0, sortedArray.length - 1);
+    }
+
+    //clue: approach1:  Do a pre order search and form an array return the nth element from the end O(N),O(N)
+    //approach2: do a reverse pre order search and keep track of iteration. O(N),O(1)
+    public static int nthLargestElement(TNode root, int n) {
+        return nthLargestElement(root, 0, n).data;
+    }
+
+    private static TNode nthLargestElement(TNode root, int iteration, int n) {
+        if (root == null || iteration == n) return root;
+
+        TNode result = nthLargestElement(root.right, iteration + 1, n);
+        if (result == null) result = root;
+        result = nthLargestElement(root.left, iteration + 1, n);
+        return root;
+    }
+
+    private static TNode treeFromSortedArray(int[] arr, int start, int end) {
+        if (start > end) return null;
+
+        int mid = (start + end) / 2;
+        TNode root = new TNode(arr[mid]);
+
+        root.left = treeFromSortedArray(arr, start, mid - 1);
+        root.right = treeFromSortedArray(arr, mid + 1, end);
+        return root;
+    }
+
     private static void printLeft(TNode root) {
         if (root == null) return;
         System.out.println(root.data);
