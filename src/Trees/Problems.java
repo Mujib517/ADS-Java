@@ -157,7 +157,45 @@ public class Problems {
     }
 
     public static void delete(TNode root, int val) {
+        if (root == null) return;
 
+        TNode[] result = findparent(root, val);
+        TNode node = result[1];
+        TNode parent = result[0];
+
+        if (node == null) return;
+
+        //Case1: No children
+        if (node.left == null && node.right == null) {
+            if (parent.left != null && parent.left.data == val) parent.left = null;
+            else if (parent.right != null && parent.right.data == val) parent.right = null;
+        }
+
+        //case 2: with only child
+        else if ((node.left == null && node.right != null) || (node.left != null && node.right == null)) {
+            if (parent.left != null && parent.left.data == val)
+                parent.left = node.left == null ? node.right : node.left;
+            else if (parent.right != null && parent.right.data == val)
+                parent.right = node.left == null ? node.right : node.left;
+        }
+
+        //case 3: With children
+        else {
+
+            TNode temp = node.left;
+
+            while (temp.right != null) {
+                temp = temp.right;
+            }
+
+            temp.left = node.left;
+            temp.right = node.right;
+
+            if (parent.left != null && parent.left.data == val)
+                parent.left = temp;
+            else if (parent.right != null && parent.right.data == val)
+                parent.right = temp;
+        }
     }
 
     public static TNode[] findparent(TNode root, int val) {
