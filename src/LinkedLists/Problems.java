@@ -1,7 +1,12 @@
 package LinkedLists;
 
 
+import java.util.HashSet;
+
 public class Problems {
+
+    static Node result = new Node(0);
+    static Node current = result;
 
     public static boolean floydCycleDetection(Node head) {
         Node slow = head, fast = head;
@@ -156,26 +161,62 @@ public class Problems {
         return nodes;
     }
 
-    public static Node arrangeEvenOdd(Node head){
-        Node tempEven=new Node(Integer.MIN_VALUE);
-        Node tempOdd=new Node(Integer.MIN_VALUE);
-        Node even=tempEven;
-        Node odd=tempOdd;
+    public static Node arrangeEvenOdd(Node head) {
+        Node tempEven = new Node(Integer.MIN_VALUE);
+        Node tempOdd = new Node(Integer.MIN_VALUE);
+        Node even = tempEven;
+        Node odd = tempOdd;
 
-        while(head!=null){
-            if(head.data%2==0){
-                tempEven.next=head;
-                tempEven=tempEven.next;
+        while (head != null) {
+            if (head.data % 2 == 0) {
+                tempEven.next = head;
+                tempEven = tempEven.next;
+            } else {
+                tempOdd.next = head;
+                tempOdd = tempOdd.next;
             }
-            else{
-                tempOdd.next=head;
-                tempOdd=tempOdd.next;
-            }
-            head=head.next;
+            head = head.next;
         }
-        tempOdd.next=null;
-        tempEven.next=odd.next;
+        tempOdd.next = null;
+        tempEven.next = odd.next;
         return even.next;
+    }
+
+    //reverse every k nodes of a linked list
+    public static Node reverseKNodes(Node head, int k) {
+        if (head == null) return result.next;
+        int count = k;
+        Node subList = new Node(0);
+        Node temp = subList;
+
+        while (head != null && count > 0) {
+            subList.next = head;
+            subList = subList.next;
+            head = head.next;
+            count--;
+        }
+        current.next = reverse(temp.next, k);
+        while (current.next != null) {
+            current = current.next;
+        }
+        reverseKNodes(head, k);
+
+        return result.next;
+    }
+
+    //reverse only k nodes
+    public static Node reverse(Node head, int k) {
+        Node pre = null;
+
+        while (head != null && k > 0) {
+            Node next = head.next;
+            head.next = pre;
+            pre = head;
+            head = next;
+            k--;
+        }
+
+        return pre;
     }
 
     //head is pointing to kth Node. Print its previous nodes
@@ -212,9 +253,9 @@ public class Problems {
             head2 = head2.next;
         }
 
-        while (head1!= null) {
+        while (head1 != null) {
             result.next = new Node(head1.data);
-            result=result.next;
+            result = result.next;
             head1 = head1.next;
         }
 
@@ -232,6 +273,9 @@ public class Problems {
         return head;
     }
 
+    //1->2->3->4->5->6
+    //      |________|
+    //
     public static Node createCycledList() {
         Node n1 = new Node(1);
         Node n2 = new Node(2);
@@ -257,5 +301,21 @@ public class Problems {
         }
     }
 
+
+    public static Node removeCycle(Node head) {
+        Node result = head;
+        HashSet<Integer> set = new HashSet<>();
+
+        while (head.next != null) {
+            if (!set.contains(head.next.data)) set.add(head.next.data);
+            else {
+                head.next = null;
+                break;
+            }
+            head = head.next;
+        }
+
+        return result;
+    }
 
 }
