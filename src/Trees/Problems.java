@@ -1,13 +1,29 @@
 package Trees;
 
 import LinkedLists.DNode;
+import sun.reflect.generics.tree.Tree;
 
+import javax.swing.tree.TreeNode;
 import java.util.*;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Problems {
+
+    static class MinMax {
+        int min;
+        int max;
+        boolean isBST;
+        int size;
+
+        MinMax() {
+            min = Integer.MAX_VALUE;
+            max = Integer.MIN_VALUE;
+            isBST = true;
+            size = 0;
+        }
+    }
 
     public static TNode buildTree(int[] arr, int n) {
         if (n <= 0) return null;
@@ -421,6 +437,41 @@ public class Problems {
     //approach2: do a reverse pre order search and keep track of iteration. O(N),O(1)
     public static int nthLargestElement(TNode root, int n) {
         return nthLargestElement(root, 0, n).data;
+    }
+
+    public static boolean rootToLeafSum(TNode root, int sum) {
+        if (root == null) return false;
+
+        if (root.left == null && root.right == null && sum == root.data) return true;
+        return (rootToLeafSum(root.left, sum - root.data) || rootToLeafSum(root.right, sum - root.data));
+
+
+    }
+
+    public static int largestBST(TNode root) {
+        return largestBSTUtil(root).size;
+    }
+
+    //Post order traversal to find out largest bst
+    private static MinMax largestBSTUtil(TNode root) {
+        if (root == null) return new MinMax();
+
+        MinMax leftMinMax = largestBSTUtil(root.left);
+        MinMax rightMinMax = largestBSTUtil(root.right);
+
+        MinMax m = new MinMax();
+
+        if (!leftMinMax.isBST || !rightMinMax.isBST || (leftMinMax.max > root.data || rightMinMax.min <= root.data)) {
+            m.isBST = false;
+            m.size = Math.max(leftMinMax.size, rightMinMax.size);
+            return m;
+        }
+
+        m.isBST = true;
+        m.size = leftMinMax.size + rightMinMax.size + 1;
+        m.min = root.left != null ? leftMinMax.min : root.data;
+        m.max = root.right != null ? rightMinMax.max : root.data;
+        return m;
     }
 
     private static TNode nthLargestElement(TNode root, int iteration, int n) {
