@@ -11,6 +11,8 @@ import java.util.Queue;
 
 public class Problems {
 
+    static int preIndex = 0;
+
     static class MinMax {
         int min;
         int max;
@@ -452,6 +454,78 @@ public class Problems {
         return largestBSTUtil(root).size;
     }
 
+    private static int findEelement(int[] in, int val, int start, int end) {
+        for (int i = start; i <= end; i++) {
+            if (in[i] == val) return i;
+        }
+        return -1;
+    }
+
+    public static TNode treeFromPreOrderInOrder(int in[], int pre[], int inStrt, int inEnd) {
+        if (inStrt > inEnd) return null;
+
+        TNode tNode = new TNode(pre[preIndex++]);
+        if (inStrt == inEnd) return tNode;
+
+        int inIndex = search(in, inStrt, inEnd, tNode.data);
+
+        tNode.left = treeFromPreOrderInOrder(in, pre, inStrt, inIndex - 1);
+        tNode.right = treeFromPreOrderInOrder(in, pre, inIndex + 1, inEnd);
+
+        return tNode;
+    }
+
+    private static int search(int arr[], int strt, int end, int value) {
+        int i;
+        for (i = strt; i <= end; i++) {
+            if (arr[i] == value)
+                return i;
+        }
+        return i;
+    }
+
+    /*
+    TNode root = new TNode(25);
+
+        TNode n18 = new TNode(18);
+        TNode n19 = new TNode(19);
+        TNode n15 = new TNode(15);
+
+        TNode n20 = new TNode(20);
+        TNode n18r = new TNode(18);
+        TNode n25 = new TNode(25);
+
+
+        TNode n50 = new TNode(50);
+        TNode n35 = new TNode(35);
+        TNode n60 = new TNode(60);
+        TNode n20r = new TNode(20);
+        TNode n40 = new TNode(40);
+        TNode n25r = new TNode(25);
+        TNode n55 = new TNode(55);
+        TNode n70 = new TNode(70);
+
+
+        root.left = n18;
+        n18.left = n19;
+        n18.right = n20;
+        n19.right = n15;
+
+        n20.left = n18r;
+        n20.right = n25;
+
+        root.right = n50;
+        n50.left = n35;
+        n50.right = n60;
+
+        n35.left = n20r;
+        n35.right = n40;
+
+        n20r.right = n25r;
+
+        n60.left = n55;
+        n60.right = n70;
+     */
     //Post order traversal to find out largest bst
     private static MinMax largestBSTUtil(TNode root) {
         if (root == null) return new MinMax();
