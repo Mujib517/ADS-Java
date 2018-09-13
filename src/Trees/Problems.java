@@ -13,6 +13,8 @@ public class Problems {
 
     static int preIndex = 0;
 
+    public static int postIndex;
+
     static class MinMax {
         int min;
         int max;
@@ -473,6 +475,20 @@ public class Problems {
         tNode.right = treeFromPreOrderInOrder(in, pre, inIndex + 1, inEnd);
 
         return tNode;
+    }
+
+    public static TNode treeFromPostInOrder(int[] in, int[] post, int start, int end) {
+        if (start > end || postIndex < 0) return null;
+
+        TNode root = new TNode(post[postIndex--]);
+        if (start == end) return root;
+
+        int idx = search(in, start, end, root.data);
+        root.right = treeFromPostInOrder(in, post, idx + 1, end);
+        root.left = treeFromPostInOrder(in, post, start, idx - 1);
+
+
+        return root;
     }
 
     private static int search(int arr[], int strt, int end, int value) {
