@@ -13,7 +13,7 @@ public class Problems {
 
     static int preIndex = 0;
 
-    public static int postIndex;
+    static int postIndex;
 
     static class MinMax {
         int min;
@@ -477,7 +477,13 @@ public class Problems {
         return tNode;
     }
 
-    public static TNode treeFromPostInOrder(int[] in, int[] post, int start, int end) {
+    public static TNode treeFromPostInOrder(int[] in, int[] post) {
+        postIndex = in.length - 1;
+
+        return treeFromPostInOrder(in, post, 0, in.length - 1);
+    }
+
+    private static TNode treeFromPostInOrder(int[] in, int[] post, int start, int end) {
         if (start > end || postIndex < 0) return null;
 
         TNode root = new TNode(post[postIndex--]);
