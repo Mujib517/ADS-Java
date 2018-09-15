@@ -108,6 +108,20 @@ public class Problems {
         System.out.println();
     }
 
+    //refactored
+    public static void stockSpan3(int[] price) {
+        java.util.Stack<Integer> s = new java.util.Stack<>();
+        s.push(0);
+        System.out.print(1 + " ");
+
+        for (int i = 1; i < price.length; i++) {
+            while (!s.empty() && price[s.peek()] <= price[i]) s.pop();
+
+            System.out.print(s.empty() ? i : (i - s.peek()) + " ");
+            s.push(i);
+        }
+    }
+
     public static void printNxtGrtElem(int[] arr, int n) {
         int[] res = new int[n];
         int max = -1;
