@@ -7,6 +7,12 @@ public class PriorityQ {
     private int count;
     private Comparator comparator;
 
+    public PriorityQ() {
+        arr = new int[20];
+        count = 0;
+        this.comparator = Comparator.naturalOrder();
+    }
+
     public PriorityQ(Comparator comparator) {
         this.comparator = comparator;
         arr = new int[20];
