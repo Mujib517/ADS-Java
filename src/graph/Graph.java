@@ -17,8 +17,8 @@ public class Graph {
     //Graph representation: Edge List (O(E) time for operations). Adjacency matrix(waste of space). Adjacency List (best for sparse graphs)
 
 
-    private int v;
-    private LinkedList<Integer>[] adjMatrix;
+    public int v;
+    public LinkedList<Integer>[] adjMatrix;
 
     public Graph(int v) {
         this.v = v;
