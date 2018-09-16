@@ -1,5 +1,6 @@
 package graph;
 
+import java.rmi.MarshalException;
 import java.util.LinkedList;
 
 public class Graph {
@@ -66,6 +67,21 @@ public class Graph {
         }
 
         return count / 2;
+    }
+
+    public void dfs() {
+        boolean[] visited = new boolean[v + 1];
+        dfs(visited, 1);
+    }
+
+    public void dfs(boolean[] visited, int source) {
+        visited[source] = true;
+        System.out.println(source);
+        for (int w : adjMatrix[source]) {
+            if (!visited[w]) {
+                dfs(visited, w);
+            }
+        }
     }
 
 }
