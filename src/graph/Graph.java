@@ -1,7 +1,7 @@
 package graph;
 
-import java.rmi.MarshalException;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class Graph {
     //Terminology
@@ -72,6 +72,25 @@ public class Graph {
     public void dfs() {
         boolean[] visited = new boolean[v + 1];
         dfs(visited, 1);
+    }
+
+    public void bfs(int source) {
+        Queue<Integer> q = new LinkedList<>();
+        boolean[] visited = new boolean[v + 1];
+        q.add(source);
+        visited[source] = true;
+        System.out.print(source + " ");
+
+        while (!q.isEmpty()) {
+            int w = q.poll();
+            for (int x : adjMatrix[w]) {
+                if (!visited[x]) {
+                    q.add(x);
+                    System.out.print(x + " ");
+                    visited[x] = true;
+                }
+            }
+        }
     }
 
     public void dfs(boolean[] visited, int source) {
