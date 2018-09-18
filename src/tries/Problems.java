@@ -6,6 +6,8 @@ import java.util.List;
 public class Problems {
 
     //given a string find whether a string can be broken into words
+    //ex: catdog:true
+    //ex: catfi: false
     public static boolean canSeparateWords(TRIE t, String str) {
         boolean wordFound = false;
         String strToFind = "";
