@@ -51,4 +51,43 @@ public class Problems {
 
         return c;
     }
+
+    public static int nextNumberWithSameDigit(int[] arr) {
+
+        int d1 = -1;
+        int i = arr.length - 1;
+        while (i > 0) {
+            if (arr[i] > arr[i - 1]) {
+                d1 = i - 1;
+                break;
+            }
+            i--;
+        }
+
+
+        if (i == 0) throw new IllegalStateException();
+
+        int min = d1;
+        ++i;
+        while (i < arr.length - 1) {
+            if (arr[i] < arr[min] && arr[d1] < arr[min]) min = i;
+            i++;
+        }
+
+        int temp = arr[d1];
+        arr[d1] = arr[min];
+        arr[min] = temp;
+
+        String result = "";
+
+        for (
+                int j = 0;
+                j < arr.length; j++)
+
+        {
+            result += Integer.toString(arr[j]);
+        }
+
+        return Integer.parseInt(result);
+    }
 }
