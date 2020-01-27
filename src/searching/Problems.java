@@ -28,6 +28,19 @@ public class Problems {
         return false;
     }
 
+    public static int interpolatedSearch(int[] arr, int k) {
+        int n = arr.length;
+        int low = 0, high = n - 1, pos;
+        while (low <= high) {
+            pos = low + ((k - arr[low]) * (high - low) / (arr[high] - arr[low]));
+
+            if (arr[pos] == k) return pos;
+            else if (arr[pos] < k) low = pos + 1;
+            else high = pos - 1;
+        }
+        return -1;
+    }
+
     //O(N)
     public static int sqrt(int n) {
         int max = n / 2;
@@ -37,6 +50,7 @@ public class Problems {
         return -1;
     }
 
+    // test case sqrt(169)
     public static int sqrt2(int n) {
         int lo = 0;
         int hi = n / 2;
