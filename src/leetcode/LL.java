@@ -7,11 +7,6 @@ class ListNode {
     ListNode(int val) {
         this.val = val;
     }
-
-    ListNode(int val, ListNode next) {
-        this.val = val;
-        this.next = next;
-    }
 }
 
 public class LL {
@@ -55,5 +50,37 @@ public class LL {
         if (carry > 0) tempRes.next = new ListNode(carry);
 
         return head.next;
+    }
+
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode result = new ListNode(0);
+        ListNode tempResult = result;
+        ListNode temp1 = l1;
+        ListNode temp2 = l2;
+
+        while (temp1 != null && temp2 != null) {
+            if (temp1.val < temp2.val) {
+                tempResult.next = new ListNode(temp1.val);
+                temp1 = temp1.next;
+            } else {
+                tempResult.next = new ListNode(temp2.val);
+                temp2 = temp2.next;
+            }
+            tempResult = tempResult.next;
+        }
+
+        while (temp1 != null) {
+            tempResult.next = new ListNode(temp1.val);
+            temp1 = temp1.next;
+            tempResult = tempResult.next;
+        }
+
+        while (temp2 != null) {
+            tempResult.next = new ListNode(temp2.val);
+            temp2 = temp2.next;
+            tempResult = tempResult.next;
+        }
+
+        return result.next;
     }
 }
