@@ -83,4 +83,20 @@ public class LL {
 
         return result.next;
     }
+
+    public static ListNode swapPairs(ListNode head) {
+        ListNode temp = head;
+        ListNode result = new ListNode(0);
+
+        while (temp != null && temp.next != null) {
+            ListNode l1 = temp;
+            ListNode l2 = temp.next;
+            l1.next = l2.next;
+            l2.next = l1;
+
+            temp = l1.next;
+        }
+
+        return result.next;
+    }
 }
