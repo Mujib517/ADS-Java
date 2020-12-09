@@ -56,4 +56,41 @@ public class General {
 
         return res.equals(str);
     }
+
+    /*
+       https://leetcode.com/problems/divide-two-integers/submissions/
+     */
+    public static int divide(long dividend, long divisor) {
+        long x = Math.abs(dividend);
+        long y = Math.abs(divisor);
+
+        int count = 0;
+        while(x>=y){
+            x = x - y;
+            ++count;
+        }
+
+        if(dividend > 0 && divisor > 0) return count;
+        else if(dividend < 0 && divisor < 0 ) return count;
+        return 0-count;
+    }
+
+    /*
+        5 = true : 1*1 + 2*2
+        4 = true : 2*2
+        3 = false
+        1 = true : 1*1 + 1*0
+        https://leetcode.com/problems/sum-of-square-numbers/
+     */
+    public static boolean judgeSquareSum(int c) {
+        int low = 0, high = (int) Math.sqrt(c);
+
+        while (low < high) {
+            int sum = low * low + high * high;
+            if (sum == c) return true;
+            if (sum > c) --high;
+            if (sum < c) ++low;
+        }
+        return false;
+    }
 }
