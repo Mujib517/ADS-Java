@@ -65,14 +65,14 @@ public class General {
         long y = Math.abs(divisor);
 
         int count = 0;
-        while(x>=y){
+        while (x >= y) {
             x = x - y;
             ++count;
         }
 
-        if(dividend > 0 && divisor > 0) return count;
-        else if(dividend < 0 && divisor < 0 ) return count;
-        return 0-count;
+        if (dividend > 0 && divisor > 0) return count;
+        else if (dividend < 0 && divisor < 0) return count;
+        return 0 - count;
     }
 
     /*
@@ -92,5 +92,43 @@ public class General {
             if (sum < c) ++low;
         }
         return false;
+    }
+
+    /*
+        https://leetcode.com/problems/length-of-last-word/
+     */
+    public static int lengthOfLastWord(String s) {
+        String[] words = s.split(" ");
+        if (words.length == 0) return 0;
+        return words[words.length - 1].length();
+    }
+
+    /*
+        https://leetcode.com/problems/rearrange-spaces-between-words/
+     */
+    public static String reorderSpaces(String text) {
+        int spaces = 0;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == ' ') spaces++;
+        }
+        String[] words = text.trim().split(" +");
+        int spacesToAdd = spaces / (words.length - 1);
+
+        String result = "";
+        int spacesEnd = spaces - ((words.length - 1) * spacesToAdd);
+
+        String spaceString = "";
+        String endString = "";
+        for (int i = 0; i < spacesToAdd; i++) spaceString += " ";
+        for (int i = 0; i < spacesEnd; i++) endString += " ";
+
+        for (int i = 0; i < words.length; i++) {
+            result += words[i];
+
+            if (i == words.length - 1) break;
+            result += spaceString;
+        }
+
+        return result + endString;
     }
 }
