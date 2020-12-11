@@ -131,4 +131,56 @@ public class General {
 
         return result + endString;
     }
+
+    /*
+        https://leetcode.com/problems/reverse-words-in-a-string-iii/
+     */
+    public static String reverseWords(String s) {
+        String[] words = s.split(" ");
+        String[] reversedWords = new String[words.length];
+
+        for (int i = 0; i < words.length; i++) {
+            reversedWords[i] = reverse(words[i]);
+        }
+        return String.join(" ", reversedWords);
+    }
+
+    /*
+        https://leetcode.com/problems/reverse-string-ii/
+     */
+    public static String reverseStr(String s, int k) {
+        int n = s.length();
+        int partitionLength = 2 * k;
+        int i = 0;
+        String result = "";
+
+        while (true) {
+            if (i >= n) return result;
+            int length = i + partitionLength < n ? i + partitionLength : n;
+            String word = s.substring(i, length);
+            System.out.println(word);
+            if (word.length() == 1) result += word;
+            else {
+                int lengthToReverse = word.length() >= k ? k : word.length();
+                String stringToReverse = word.substring(0, lengthToReverse);
+                String reversedPortion = reverse(stringToReverse);
+                System.out.println(reversedPortion);
+                result += word.replace(stringToReverse, reversedPortion);
+            }
+            i = i + partitionLength;
+        }
+    }
+
+    private static String reverse(String s) {
+        char[] arr = s.toCharArray();
+        int p1 = 0, p2 = arr.length - 1;
+        while (p1 < p2) {
+            char temp = arr[p2];
+            arr[p2] = arr[p1];
+            arr[p1] = temp;
+            p1++;
+            p2--;
+        }
+        return String.valueOf(arr);
+    }
 }
