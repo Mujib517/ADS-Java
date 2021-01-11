@@ -1,13 +1,6 @@
 package leetcode;
 
-class ListNode {
-    public int val;
-    public ListNode next;
-
-    ListNode(int val) {
-        this.val = val;
-    }
-}
+import java.util.List;
 
 public class LL {
     /*
@@ -98,5 +91,85 @@ public class LL {
         }
 
         return result.next;
+    }
+
+    /*
+        https://leetcode.com/problems/rotate-list/
+     */
+    public static ListNode rotate(ListNode head, int k) {
+        int count = size(head);
+        if (count == 0) return null;
+        k = k % count;
+        ListNode reversedList = reverse(head);
+        ListNode list1 = getPartition1(reversedList, k);
+        ListNode reversedList1 = reverse(list1);
+        ListNode list2 = getPartition2(reversedList, k);
+        ListNode reversedList2 = reverse(list2);
+
+        return append(reversedList1, reversedList2);
+    }
+
+    private static ListNode append(ListNode list1, ListNode list2) {
+        if (list1 == null) return list2;
+        ListNode temp = list1;
+        while (temp != null && temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = list2;
+
+        return list1;
+    }
+
+    private static ListNode getPartition2(ListNode reversedList, int k) {
+        ListNode list = new ListNode(-1);
+        ListNode temp1 = list;
+        ListNode temp = reversedList;
+        while (k > 0) {
+            temp = temp.next;
+            k--;
+        }
+        while (temp != null) {
+            temp1.next = new ListNode(temp.val);
+            temp = temp.next;
+            temp1 = temp1.next;
+        }
+        return list.next;
+    }
+
+    private static ListNode getPartition1(ListNode reversedList, int k) {
+        ListNode list1 = new ListNode(-1);
+        ListNode temp = reversedList;
+        ListNode temp1 = list1;
+        while (k > 0 && temp != null) {
+            temp1.next = new ListNode(temp.val);
+            temp1 = temp1.next;
+            temp = temp.next;
+            k--;
+        }
+        return list1.next;
+    }
+
+    private static int size(ListNode head) {
+        ListNode temp = head;
+        int count = 0;
+        while (temp != null) {
+            ++count;
+            temp = temp.next;
+        }
+        return count;
+    }
+
+    public static ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        ListNode temp = head;
+
+        while (temp != null) {
+            ListNode next = temp.next;
+            temp.next = prev;
+            prev = temp;
+            temp = next;
+        }
+
+        return prev;
     }
 }
